@@ -64,8 +64,21 @@ CIRCULATION_SPACE = 0.20
 STANDARD_WORK_HOURS = 8
 OVERHEAD_PROFIT = 0.15
 
+# Define the URL of your pickle file from the release
+MODEL_URL ="https://github.com/John-A1/Costestimator.ai/releases/download/v0.1/cost_only_model.pkl"
+
+# Check if the model file exists locally
+if not os.path.exists("cost_only_model.pkl"):
+    # Download the model file
+    with st.spinner('Downloading model...'):
+        urllib.request.urlretrieve(MODEL_URL, "cost_only_model.pkl")
+        st.success("Model downloaded successfully!")
+
+# Load the model
+with open("cost_only_model.pkl", "rb") as f:
+    model = pickle.load(f)
 # Load artifacts
-model = pickle.load(open('cost_only_model.pkl', 'rb'))
+#model = pickle.load(open('cost_only_model.pkl', 'rb'))
 preprocessor = pickle.load(open('preprocessor_cost.pkl', 'rb'))
 metrics = pickle.load(open('metrics_cost.pkl', 'rb'))
 
